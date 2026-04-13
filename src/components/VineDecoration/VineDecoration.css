@@ -1,0 +1,41 @@
+/*
+ * Layering is controlled by DOM order in App.jsx:
+ *   1. VineBehind (left, right) – painted first, behind scanner
+ *   2. CameraScanner – painted on top of behind vines
+ *   3. VineFront (left, right) – painted last, on top of scanner
+ * No z-index needed. The outer .vine-layer is a plain div (no transform)
+ * so it does NOT create a stacking context.
+ */
+
+.vine-layer {
+  position: absolute;
+  top: -24px;
+  bottom: -24px;
+  width: clamp(60px, 22vw, 95px);
+  pointer-events: none;
+}
+
+.vine-pos-left {
+  left: clamp(-12px, -4.5vw, -10px);
+}
+
+.vine-pos-right {
+  right: clamp(-12px, -4.5vw, -10px);
+}
+
+.vine-front-shadow {
+  filter: drop-shadow(1px 3px 6px rgba(0, 0, 0, 0.12));
+}
+
+.vine-layer-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-origin: center bottom;
+}
+
+.vine-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}

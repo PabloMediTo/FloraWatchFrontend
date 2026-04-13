@@ -1,0 +1,159 @@
+import { useState, useCallback, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import CameraScanner from './components/CameraScanner/CameraScanner';
+import { VineBehind, VineFront } from './components/VineDecoration/VineDecoration';
+import ScanButton from './components/ScanButton/ScanButton';
+import StatusMessage from './components/StatusMessage/StatusMessage';
+import ResultCard from './components/ResultCard/ResultCard';
+import SkeletonCard from './components/SkeletonCard/SkeletonCard';
+import ScanHistory from './components/ScanHistory/ScanHistory';
+import { FloraLogoIcon, GalleryIcon } from './components/Icons/Icons';
+import { warmupBackend, predictPlant } from './services/api';
+import { getHistory, addToHistory, clearHistory } from './services/history';
+import LangPicker from './components/LangPicker/LangPicker';
+import './App.css';
+
+/* Short haptic pulse — safe no-op on unsupported devices */
+const vibrate = (pattern = 15) => {
+  try { navigator.vibrate?.(pattern); } catch {}
+};
+
+export default function App() {
+  const [status, setStatus] = useState('idle'); // idle | scanning | success | error
+  const [result, setResult] = useState(null);
+  const [showFlowers, setShowFlowers] = useState(false);
+  const [history, setHistory] = useState(() => getHistory());
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const scannerRef = useRef(null);
+  const fileInputRef = useRef(null);
+
+  /* Wake up the backend as soon as the app loads */
+  useEffect(() => { warmupBackend(); }, []);
+
+  /* Shared prediction handler for both camera & upload */
+  const processBlob = useCallback(async (blob) => {
+    vibrate(15);
+    setStatus('scanning');
+    setResult(null);
+    setShowFlowers(false);
+
+    try {
+      let plant = await predictPlant(blob);
+
+      setResult(plant);
+      if (plant.unknown) {
+        vibrate([10, 40, 10]);
+        setStatus('uncertain');
+      } else {
+        vibrate([10, 30, 10, 30, 10]);
+        setStatus('success');
+        setShowFlowers(true);
+        setHistory(addToHistory(plant));
+      }
+    } catch {
+      vibrate([30, 50, 30]);
+      setStatus('error');
+    }
+  }, []);
+
+  const handleScan = useCallback(async () => {
+    const blob = scannerRef.current ? await scannerRef.current.captureFrame() : null;
+    processBlob(blob);
+  }, [processBlob]);
+
+  const handleUpload = useCallback((e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setPreviewUrl(URL.createObjectURL(file));
+    processBlob(file);
+    e.target.value = '';
+  }, [processBlob]);
+
+  const handleDismiss = useCallback(() => {
+    setStatus('idle');
+    setResult(null);
+    setShowFlowers(false);
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+      setPreviewUrl(null);
+    }
+  }, [previewUrl]);
+
+  const handleClearHistory = useCallback(() => {
+    clearHistory();
+    setHistory([]);
+  }, []);
+
+  return (
+    <div className="app">
+      <LangPicker />
+
+      {/* Title */}
+      <motion.h1
+        className="app-title"
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 140, damping: 16 }}
+      >
+        <span className="title-icon"><FloraLogoIcon size={32} /></span>
+        <span>Flora<span className="title-accent">Watch</span></span>
+      </motion.h1>
+
+      {/* Status */}
+      <StatusMessage status={status} />
+
+      {/* Scanner area – DOM order controls layering:
+           behind vines → scanner → front vines */}
+      <div className="scanner-area">
+        <VineBehind side="left" />
+        <VineBehind side="right" />
+        <CameraScanner ref={scannerRef} scanning={status === 'scanning'} frozen={status !== 'idle'} previewUrl={previewUrl} />
+        <VineFront side="left" showFlowers={showFlowers} />
+        <VineFront side="right" showFlowers={showFlowers} />
+      </div>
+
+      {/* Action / Result */}
+      <div className="action-area">
+        <AnimatePresence mode="wait">
+          {status === 'scanning' ? (
+            <SkeletonCard key="skeleton" />
+          ) : result ? (
+            <ResultCard key="result" result={result} uncertain={status === 'uncertain'} onDismiss={handleDismiss} />
+          ) : (
+            <motion.div
+              key="scan"
+              className="scan-actions"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.25 }}
+            >
+              <ScanButton
+                onClick={handleScan}
+                disabled={status === 'scanning'}
+                scanning={status === 'scanning'}
+              />
+              <button
+                className="upload-btn"
+                onClick={() => fileInputRef.current?.click()}
+                aria-label="Upload photo"
+              >
+                <GalleryIcon size={20} color="#3d8b3d" />
+              </button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="upload-input"
+                onChange={handleUpload}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Scan history */}
+      {status === 'idle' && <ScanHistory history={history} onClear={handleClearHistory} />}
+    </div>
+  );
+}
