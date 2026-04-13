@@ -17,7 +17,7 @@ A mobile-first plant identification app built with React. Point your camera at a
 - **PWA** — installable with offline support via service worker
 - **Haptic feedback** — vibration patterns for scan, success, and error states
 - **Torch / flashlight** — toggle the device flashlight for low-light scanning
-- **Swipe to dismiss** — drag the result card down to dismiss
+- **Swipe to dismiss** — drag the result card left or right to dismiss
 
 ## Tech Stack
 
@@ -25,6 +25,18 @@ A mobile-first plant identification app built with React. Point your camera at a
 - **Motion for React** (animations, drag gestures)
 - **Wikipedia REST API** (plant thumbnail images)
 - **Custom SVG icons** (no icon library dependencies)
+
+## Performance
+
+The app is optimized for mobile devices:
+
+- **Code splitting** — `ResultCard` and `ScanHistory` are lazy-loaded
+- **Chunk splitting** — `react` and `motion` are split into separate cacheable bundles
+- **CSS animations** — vine sway uses GPU-accelerated CSS keyframes instead of JS-driven animation loops
+- **Reduced motion** — respects `prefers-reduced-motion` and disables expensive effects on small screens
+- **Adaptive camera** — lower resolution (640×480) on mobile to reduce GPU/memory pressure
+- **Optimized assets** — SVGs compressed with SVGO; expensive `drop-shadow` and `backdrop-filter` disabled on mobile
+- **Font loading** — Google Font loaded via `<link>` with `preconnect` to avoid render-blocking
 
 ## Getting Started
 
