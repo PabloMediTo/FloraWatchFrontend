@@ -1,17 +1,19 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import CameraScanner from './components/CameraScanner/CameraScanner';
 import { VineBehind, VineFront } from './components/VineDecoration/VineDecoration';
 import ScanButton from './components/ScanButton/ScanButton';
 import StatusMessage from './components/StatusMessage/StatusMessage';
-import ResultCard from './components/ResultCard/ResultCard';
 import SkeletonCard from './components/SkeletonCard/SkeletonCard';
-import ScanHistory from './components/ScanHistory/ScanHistory';
 import { FloraLogoIcon, GalleryIcon } from './components/Icons/Icons';
 import { warmupBackend, predictPlant } from './services/api';
 import { getHistory, addToHistory, clearHistory } from './services/history';
 import LangPicker from './components/LangPicker/LangPicker';
 import './App.css';
+
+/* Lazy-load heavy components that aren't needed on initial render */
+const ResultCard = lazy(() => import('./components/ResultCard/ResultCard'));
+const ScanHistory = lazy(() => import('./components/ScanHistory/ScanHistory'));
 
 /* Short haptic pulse — safe no-op on unsupported devices */
 const vibrate = (pattern = 15) => {
@@ -118,7 +120,9 @@ export default function App() {
           {status === 'scanning' ? (
             <SkeletonCard key="skeleton" />
           ) : result ? (
-            <ResultCard key="result" result={result} uncertain={status === 'uncertain'} onDismiss={handleDismiss} />
+            <Suspense fallback={<SkeletonCard />}>
+              <ResultCard key="result" result={result} uncertain={status === 'uncertain'} onDismiss={handleDismiss} />
+            </Suspense>
           ) : (
             <motion.div
               key="scan"
@@ -153,7 +157,11 @@ export default function App() {
       </div>
 
       {/* Scan history */}
-      {status === 'idle' && <ScanHistory history={history} onClear={handleClearHistory} />}
+      {status === 'idle' && (
+        <Suspense fallback={null}>
+          <ScanHistory history={history} onClear={handleClearHistory} />
+        </Suspense>
+      )}
     </div>
   );
 }

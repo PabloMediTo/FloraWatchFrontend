@@ -39,8 +39,14 @@ export default forwardRef(function CameraScanner({ scanning, frozen, previewUrl 
 
   const startCamera = useCallback(async () => {
     try {
+      /* Use lower resolution on mobile to reduce GPU/memory pressure */
+      const isMobile = /Mobi|Android/i.test(navigator.userAgent);
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } },
+        video: {
+          facingMode: 'environment',
+          width: { ideal: isMobile ? 640 : 1280 },
+          height: { ideal: isMobile ? 480 : 720 },
+        },
         audio: false,
       });
       if (videoRef.current) {

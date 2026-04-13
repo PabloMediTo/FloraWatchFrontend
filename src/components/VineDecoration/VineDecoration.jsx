@@ -324,14 +324,12 @@ export function VineBehind({ side }) {
   const ready = useSvgReady();
   return (
     <div className={`vine-layer vine-pos-${side}`}>
-      <motion.div
-        className="vine-layer-inner"
-        initial={{ opacity: 0 }}
-        animate={ready ? { opacity: 1, rotate: isLeft ? [0, 0.5, 0, -0.3, 0] : [0, -0.4, 0, 0.5, 0] } : { opacity: 0 }}
-        transition={{ opacity: { delay: isLeft ? 0.3 : 0.45, duration: 0.6 }, rotate: { duration: isLeft ? 8 : 9, repeat: Infinity, ease: 'easeInOut' } }}
+      <div
+        className={`vine-layer-inner vine-sway vine-sway-${side}`}
+        style={{ opacity: ready ? 1 : 0 }}
       >
         {isLeft ? <LeftVineBehind /> : <RightVineBehind />}
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -341,14 +339,12 @@ export function VineFront({ side, showFlowers }) {
   const ready = useSvgReady();
   return (
     <div className={`vine-layer vine-pos-${side} vine-front-shadow`}>
-      <motion.div
-        className="vine-layer-inner"
-        initial={{ opacity: 0 }}
-        animate={ready ? { opacity: 1, rotate: isLeft ? [0, -0.3, 0, 0.4, 0] : [0, 0.4, 0, -0.5, 0] } : { opacity: 0 }}
-        transition={{ opacity: { delay: isLeft ? 0.35 : 0.5, duration: 0.6 }, rotate: { duration: isLeft ? 9.5 : 8, repeat: Infinity, ease: 'easeInOut', delay: 0.5 } }}
+      <div
+        className={`vine-layer-inner vine-sway vine-sway-${side}`}
+        style={{ opacity: ready ? 1 : 0 }}
       >
         {isLeft ? <LeftVineFront showFlowers={showFlowers} /> : <RightVineFront showFlowers={showFlowers} />}
-      </motion.div>
+      </div>
     </div>
   );
 }

@@ -2,7 +2,7 @@
 /*  Global styles – Florawatch                         */
 /* -------------------------------------------------- */
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap');
+/* Font loaded via <link> in index.html for non-blocking render */
 
 *,
 *::before,
@@ -132,6 +132,7 @@ body {
   pointer-events: none;
   z-index: -1;
   opacity: 0.25;
+  will-change: transform;
 }
 
 .app::before {
@@ -155,6 +156,26 @@ body {
 @keyframes float-blob {
   0%, 100% { transform: translate(0, 0); }
   50% { transform: translate(20px, -20px); }
+}
+
+/* Disable expensive effects and animations on mobile */
+@media (max-width: 480px) {
+  .app::before,
+  .app::after {
+    animation: none;
+  }
+
+  .upload-btn {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app::before,
+  .app::after {
+    animation: none;
+  }
 }
 
 /* Responsive tweaks for very small screens */
