@@ -11,24 +11,25 @@ export default function ResultCard({ result, uncertain, onDismiss }) {
   /** Resolve a multilingual { en, de, es } value or plain string */
   const loc = (v) => (v && typeof v === 'object' ? (v[lang] || v.en) : v);
 
-  const y = useMotionValue(0);
-  const opacity = useTransform(y, [0, 120], [1, 0.2]);
+  const x = useMotionValue(0);
+  const opacity = useTransform(x, [-150, 0, 150], [0.2, 1, 0.2]);
+  const rotate = useTransform(x, [-150, 0, 150], [-8, 0, 8]);
 
   const handleDragEnd = (_, info) => {
-    if (Math.abs(info.offset.y) > 100) onDismiss();
+    if (Math.abs(info.offset.x) > 100) onDismiss();
   };
   if (uncertain) {
     return (
       <motion.div
         className="result-card result-card--uncertain"
-        style={{ y, opacity }}
-        drag="y"
-        dragConstraints={{ top: 0, bottom: 0 }}
+        style={{ x, opacity, rotate }}
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
         dragElastic={0.6}
         onDragEnd={handleDragEnd}
-        initial={{ y: 60, opacity: 0, scale: 0.92 }}
-        animate={{ y: 0, opacity: 1, scale: 1 }}
-        exit={{ y: 40, opacity: 0, scale: 0.95 }}
+        initial={{ x: 60, opacity: 0, scale: 0.92 }}
+        animate={{ x: 0, opacity: 1, scale: 1 }}
+        exit={{ x: 200, opacity: 0, scale: 0.95 }}
         transition={{ type: 'spring', stiffness: 180, damping: 20 }}
       >
         <div className="result-header">
@@ -66,14 +67,14 @@ export default function ResultCard({ result, uncertain, onDismiss }) {
   return (
     <motion.div
       className="result-card"
-      style={{ y, opacity }}
-      drag="y"
-      dragConstraints={{ top: 0, bottom: 0 }}
+      style={{ x, opacity, rotate }}
+      drag="x"
+      dragConstraints={{ left: 0, right: 0 }}
       dragElastic={0.6}
       onDragEnd={handleDragEnd}
-      initial={{ y: 60, opacity: 0, scale: 0.92 }}
-      animate={{ y: 0, opacity: 1, scale: 1 }}
-      exit={{ y: 40, opacity: 0, scale: 0.95 }}
+      initial={{ x: 60, opacity: 0, scale: 0.92 }}
+      animate={{ x: 0, opacity: 1, scale: 1 }}
+      exit={{ x: 200, opacity: 0, scale: 0.95 }}
       transition={{ type: 'spring', stiffness: 180, damping: 20 }}
     >
       <div className="result-header">
