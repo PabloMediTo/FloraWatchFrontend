@@ -2,6 +2,7 @@ export default {
   // Status messages
   'status.idle': 'Point the camera at a plant',
   'status.scanning': 'Scanning…',
+  'status.coldStart': 'First scan may take up to 60 s while the server wakes up',
   'status.success': 'Plant detected!',
   'status.uncertain': 'Could not identify plant',
   'status.error': 'Something went wrong',

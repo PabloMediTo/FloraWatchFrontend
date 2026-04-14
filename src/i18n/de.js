@@ -1,6 +1,7 @@
 export default {
   'status.idle': 'Richte die Kamera auf eine Pflanze',
   'status.scanning': 'Scannen…',
+  'status.coldStart': 'Der erste Scan kann bis zu 60 s dauern, während der Server hochfährt',
   'status.success': 'Pflanze erkannt!',
   'status.uncertain': 'Pflanze nicht erkannt',
   'status.error': 'Etwas ist schiefgelaufen',

@@ -11,7 +11,7 @@ const STATUS_CONFIG = {
   error: { key: 'status.error', Icon: AlertIcon, color: '#b94040' },
 };
 
-export default function StatusMessage({ status }) {
+export default function StatusMessage({ status, isFirstScan }) {
   const { t } = useI18n();
   const config = STATUS_CONFIG[status] || STATUS_CONFIG.idle;
   const { Icon } = config;
@@ -28,6 +28,9 @@ export default function StatusMessage({ status }) {
       >
         <span className="status-icon"><Icon size={18} color={config.color} /></span>
         <span className="status-text">{t(config.key)}</span>
+        {status === 'scanning' && isFirstScan && (
+          <span className="status-hint">{t('status.coldStart')}</span>
+        )}
       </motion.div>
     </AnimatePresence>
   );

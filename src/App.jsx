@@ -102,7 +102,7 @@ export default function App() {
       </motion.h1>
 
       {/* Status */}
-      <StatusMessage status={status} />
+      <StatusMessage status={status} isFirstScan={history.length === 0} />
 
       {/* Scanner area – DOM order controls layering:
            behind vines → scanner → front vines */}

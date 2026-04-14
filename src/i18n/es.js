@@ -1,6 +1,7 @@
 export default {
   'status.idle': 'Apunta la cámara a una planta',
   'status.scanning': 'Escaneando…',
+  'status.coldStart': 'El primer escaneo puede tardar hasta 60 s mientras el servidor se inicia',
   'status.success': '¡Planta detectada!',
   'status.uncertain': 'No se pudo identificar',
   'status.error': 'Algo salió mal',
