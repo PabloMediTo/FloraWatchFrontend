@@ -2,6 +2,8 @@
 
 A mobile-first plant identification app built with React. Point your camera at a plant (or upload a photo) and get an instant ID with care tips, fun facts, and toxicity warnings.
 
+https://pablomedito.github.io/FloraWatchFrontend/
+
 ![React](https://img.shields.io/badge/React-19-blue) ![Vite](https://img.shields.io/badge/Vite-6-purple) ![PWA](https://img.shields.io/badge/PWA-ready-green)
 
 ## Features
