@@ -34,5 +34,14 @@ export default {
   'toxicity.mildlyToxic': 'Levemente tóxica',
   'toxicity.safe': 'Segura para mascotas',
 
+  'confirm.question': '¿Es esta tu planta?',
+  'confirm.yes': '¡Sí, es esa!',
+  'confirm.no': 'No',
+  'confirm.noImage': 'Imagen no disponible',
+
+  'plantList.title': 'Plantas compatibles',
+
+  'plantDetail.close': 'Cerrar',
+
   'lang.label': 'Idioma',
 };

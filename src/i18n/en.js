@@ -41,6 +41,18 @@ export default {
   'toxicity.mildlyToxic': 'Mildly toxic',
   'toxicity.safe': 'Pet safe',
 
+  // Confirm modal
+  'confirm.question': 'Is this your plant?',
+  'confirm.yes': 'Yes, that\'s it!',
+  'confirm.no': 'No',
+  'confirm.noImage': 'No image available',
+
+  // Plant list modal
+  'plantList.title': 'Supported Plants',
+
+  // Plant detail popup
+  'plantDetail.close': 'Close',
+
   // Language picker
   'lang.label': 'Language',
 };

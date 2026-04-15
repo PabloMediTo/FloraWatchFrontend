@@ -1,7 +1,8 @@
 # 🌿 FloraWatch
 
 A mobile-first plant identification app built with React. Point your camera at a plant (or upload a photo) and get an instant ID with care tips, fun facts, and toxicity warnings.
-Demo: https://pablomedito.github.io/FloraWatchFrontend/
+
+🔗 **Live Demo:** [pablomedito.github.io/FloraWatchFrontend](https://pablomedito.github.io/FloraWatchFrontend/)
 
 ![React](https://img.shields.io/badge/React-19-blue) ![Vite](https://img.shields.io/badge/Vite-6-purple) ![PWA](https://img.shields.io/badge/PWA-ready-green)
 
@@ -9,16 +10,18 @@ Demo: https://pablomedito.github.io/FloraWatchFrontend/
 
 - **Camera scanning** — live viewfinder with frame freeze on capture
 - **Photo upload** — pick from gallery as an alternative to the camera
-- **Plant identification** — identifies 25 common houseplant species
-- **Care tips** — watering, frequency, and sunlight recommendations
+- **Plant identification** — identifies 23 common houseplant species
+- **Plant encyclopedia** — swipable left-side drawer listing all supported species with thumbnails
+- **Plant detail view** — tap any plant for care info, toxicity badge, image, and fun facts
+- **Care tips** — watering, frequency, and sunlight recommendations with custom SVG icons
 - **Toxicity warnings** — pet safety badges (toxic / mildly toxic / safe)
-- **Fun facts** — random "Did you know?" tidbits for each species
+- **Fun facts** — "Did you know?" section with 4 facts per species and a refresh button that cycles without repeats
 - **Scan history** — recent scans stored in localStorage with plant thumbnails from Wikipedia
 - **Internationalization** — English, German, and Spanish (UI, care tips, facts, common names)
 - **PWA** — installable with offline support via service worker
 - **Haptic feedback** — vibration patterns for scan, success, and error states
 - **Torch / flashlight** — toggle the device flashlight for low-light scanning
-- **Swipe to dismiss** — drag the result card left or right to dismiss
+- **Swipe gestures** — drag result card, swipe drawer to dismiss, swipe detail panel to go back
 
 ## Tech Stack
 
@@ -68,9 +71,9 @@ To test without the backend, set `USE_MOCK = true` in `src/services/api.js`.
 
 ```
 src/
-├── components/       # React components (CameraScanner, ResultCard, etc.)
-├── data/             # Plant care data and fun facts (multilingual)
-├── hooks/            # Custom hooks (usePlantImage, useSvgReady)
+├── components/       # React components (CameraScanner, ResultCard, PlantListModal, etc.)
+├── data/             # Plant care data and fun facts (23 species, multilingual)
+├── hooks/            # Custom hooks (usePlantImage)
 ├── i18n/             # Internationalization (en, de, es translations + context)
 ├── services/         # API client and localStorage history
 └── App.jsx           # Main app component

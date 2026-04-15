@@ -1,12 +1,15 @@
-import { motion, useMotionValue, useTransform } from 'motion/react';
-import { SproutIcon, RefreshIcon, WaterDropIcon, CalendarIcon, SunIcon } from '../Icons/Icons';
+import { useState } from 'react';
+import { motion, useMotionValue, useTransform, AnimatePresence } from 'motion/react';
+import { SproutIcon, RefreshIcon, WaterDropIcon, CalendarIcon, SunIcon, SearchIcon } from '../Icons/Icons';
+import PlantConfirmModal from '../PlantConfirmModal/PlantConfirmModal';
 import usePlantImage from '../../hooks/usePlantImage';
 import { useI18n } from '../../i18n/I18nContext';
 import './ResultCard.css';
 
-export default function ResultCard({ result, uncertain, onDismiss }) {
+export default function ResultCard({ result, uncertain, onDismiss, onConfirmPlant }) {
   const { t, lang } = useI18n();
   const { url: plantImgUrl } = usePlantImage(uncertain ? null : result.name);
+  const [confirmPlant, setConfirmPlant] = useState(null);
 
   /** Resolve a multilingual { en, de, es } value or plain string */
   const loc = (v) => (v && typeof v === 'object' ? (v[lang] || v.en) : v);
@@ -41,9 +44,12 @@ export default function ResultCard({ result, uncertain, onDismiss }) {
 
         <ul className="top3-list">
           {(result.top3 || []).map((guess, i) => (
-            <li key={i} className="top3-item">
+            <li key={i} className="top3-item top3-item--clickable" role="button" tabIndex={0} onClick={() => setConfirmPlant(guess.name)} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setConfirmPlant(guess.name); }}>
               <span className="top3-rank">#{i + 1}</span>
-              <span className="top3-name">{guess.name}</span>
+              <span className="top3-name">
+                {guess.name}
+                <SearchIcon size={12} color="#92400e" className="top3-search-icon" />
+              </span>
               <div className="top3-bar-track">
                 <motion.div
                   className="top3-bar-fill"
@@ -60,6 +66,19 @@ export default function ResultCard({ result, uncertain, onDismiss }) {
         <button className="result-dismiss" onClick={onDismiss}>
           <RefreshIcon size={16} color="#fff" /> {t('result.tryAgain')}
         </button>
+
+        <AnimatePresence>
+          {confirmPlant && (
+            <PlantConfirmModal
+              plantName={confirmPlant}
+              onConfirm={(name) => {
+                setConfirmPlant(null);
+                onConfirmPlant?.(name);
+              }}
+              onCancel={() => setConfirmPlant(null)}
+            />
+          )}
+        </AnimatePresence>
       </motion.div>
     );
   }
@@ -85,7 +104,8 @@ export default function ResultCard({ result, uncertain, onDismiss }) {
         <motion.img
           src={plantImgUrl}
           alt={result.name}
-          className="plant-illustration"
+          className="plant-illustration plant-illustration--clickable"
+          onClick={() => setConfirmPlant(result.name)}
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.15, duration: 0.4 }}
@@ -158,9 +178,12 @@ export default function ResultCard({ result, uncertain, onDismiss }) {
       {result.top3?.length > 0 && (
         <ul className="top3-list top3-list--success">
           {result.top3.map((guess, i) => (
-            <li key={i} className="top3-item">
+            <li key={i} className="top3-item top3-item--clickable" role="button" tabIndex={0} onClick={() => setConfirmPlant(guess.name)} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setConfirmPlant(guess.name); }}>
               <span className="top3-rank">#{i + 1}</span>
-              <span className="top3-name">{guess.name}</span>
+              <span className="top3-name">
+                {guess.name}
+                <SearchIcon size={12} color="#166534" className="top3-search-icon" />
+              </span>
               <div className="top3-bar-track">
                 <motion.div
                   className="top3-bar-fill top3-bar-fill--success"
@@ -178,6 +201,19 @@ export default function ResultCard({ result, uncertain, onDismiss }) {
       <button className="result-dismiss" onClick={onDismiss}>
         <RefreshIcon size={16} color="#fff" /> {t('result.scanAgain')}
       </button>
+
+      <AnimatePresence>
+        {confirmPlant && (
+          <PlantConfirmModal
+            plantName={confirmPlant}
+            onConfirm={(name) => {
+              setConfirmPlant(null);
+              onConfirmPlant?.(name);
+            }}
+            onCancel={() => setConfirmPlant(null)}
+          />
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }

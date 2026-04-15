@@ -5,10 +5,14 @@ import { VineBehind, VineFront } from './components/VineDecoration/VineDecoratio
 import ScanButton from './components/ScanButton/ScanButton';
 import StatusMessage from './components/StatusMessage/StatusMessage';
 import SkeletonCard from './components/SkeletonCard/SkeletonCard';
-import { FloraLogoIcon, GalleryIcon } from './components/Icons/Icons';
+import { FloraLogoIcon, GalleryIcon, InfoIcon } from './components/Icons/Icons';
 import { warmupBackend, predictPlant } from './services/api';
+import { getPlantCare } from './data/plantCare';
+import { getRandomFact } from './data/plantFacts';
 import { getHistory, addToHistory, clearHistory } from './services/history';
 import LangPicker from './components/LangPicker/LangPicker';
+import PlantListModal from './components/PlantListModal/PlantListModal';
+import './components/PlantListModal/PlantListModal.css';
 import './App.css';
 
 /* Lazy-load heavy components that aren't needed on initial render */
@@ -24,6 +28,7 @@ export default function App() {
   const [status, setStatus] = useState('idle'); // idle | scanning | success | error
   const [result, setResult] = useState(null);
   const [showFlowers, setShowFlowers] = useState(false);
+  const [showPlantList, setShowPlantList] = useState(false);
   const [history, setHistory] = useState(() => getHistory());
   const [previewUrl, setPreviewUrl] = useState(null);
   const scannerRef = useRef(null);
@@ -86,9 +91,39 @@ export default function App() {
     setHistory([]);
   }, []);
 
+  const handleConfirmPlant = useCallback((plantName) => {
+    const care = getPlantCare(plantName);
+    const confirmedResult = {
+      unknown: false,
+      name: plantName,
+      commonName: care?.commonName || null,
+      confidence: result?.top3?.find((g) => g.name === plantName)?.confidence || 0,
+      care: care
+        ? { water: care.water, frequency: care.frequency, sunlight: care.sunlight }
+        : null,
+      toxicity: care?.toxicity || null,
+      funFact: getRandomFact(plantName),
+      top3: result?.top3 || [],
+    };
+    setResult(confirmedResult);
+    vibrate([10, 30, 10, 30, 10]);
+    setStatus('success');
+    setShowFlowers(true);
+    setHistory(addToHistory(confirmedResult));
+  }, [result]);
+
   return (
     <div className="app">
       <LangPicker />
+
+      {/* Info button – top left */}
+      <button
+        className="info-btn-corner"
+        onClick={() => setShowPlantList(true)}
+        aria-label="Show supported plants"
+      >
+        <InfoIcon size={15} color="#3d8b3d" />
+      </button>
 
       {/* Title */}
       <motion.h1
@@ -121,7 +156,7 @@ export default function App() {
             <SkeletonCard key="skeleton" />
           ) : result ? (
             <Suspense fallback={<SkeletonCard />}>
-              <ResultCard key="result" result={result} uncertain={status === 'uncertain'} onDismiss={handleDismiss} />
+              <ResultCard key="result" result={result} uncertain={status === 'uncertain'} onDismiss={handleDismiss} onConfirmPlant={handleConfirmPlant} />
             </Suspense>
           ) : (
             <motion.div
@@ -162,6 +197,9 @@ export default function App() {
           <ScanHistory history={history} onClear={handleClearHistory} />
         </Suspense>
       )}
+
+      {/* Plant list modal */}
+      <PlantListModal open={showPlantList} onClose={() => setShowPlantList(false)} />
     </div>
   );
 }

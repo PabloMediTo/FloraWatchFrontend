@@ -71,6 +71,32 @@ body {
   color: #3d8b3d;
 }
 
+/* Info button – fixed top-left corner */
+.info-btn-corner {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s, box-shadow 0.2s;
+  z-index: 100;
+}
+
+.info-btn-corner:hover {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
 /* Scanner area wrapper – holds camera + vines */
 .scanner-area {
   position: relative;

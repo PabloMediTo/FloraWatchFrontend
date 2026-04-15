@@ -34,5 +34,14 @@ export default {
   'toxicity.mildlyToxic': 'Leicht giftig',
   'toxicity.safe': 'Haustiersicher',
 
+  'confirm.question': 'Ist das deine Pflanze?',
+  'confirm.yes': 'Ja, genau!',
+  'confirm.no': 'Nein',
+  'confirm.noImage': 'Kein Bild verfügbar',
+
+  'plantList.title': 'Unterstützte Pflanzen',
+
+  'plantDetail.close': 'Schließen',
+
   'lang.label': 'Sprache',
 };

@@ -1,5 +1,5 @@
 /**
- * Care information for all 25 species the model can identify.
+ * Care information for the 23 species the model can identify.
  * Keyed by the scientific name (label) returned by the backend.
  * Text fields use { en, de, es } for i18n.
  */
@@ -137,44 +137,6 @@ const PLANT_CARE = {
     },
     toxicity: 'mildlyToxic',
   },
-  'Dracaena marginata': {
-    commonName: { en: 'Dragon Tree', de: 'Drachenbaum', es: 'Drácena marginata' },
-    water: {
-      en: 'Low — let soil dry out between waterings.',
-      de: 'Wenig — Erde zwischen dem Gießen trocknen lassen.',
-      es: 'Poco — dejar secar la tierra entre riegos.',
-    },
-    frequency: {
-      en: 'Every 10–14 days',
-      de: 'Alle 10–14 Tage',
-      es: 'Cada 10–14 días',
-    },
-    sunlight: {
-      en: 'Medium to bright indirect light.',
-      de: 'Mittleres bis helles indirektes Licht.',
-      es: 'Luz indirecta media a brillante.',
-    },
-    toxicity: 'toxic',
-  },
-  'Zamioculcas zamiifolia': {
-    commonName: { en: 'ZZ Plant', de: 'Glücksfeder', es: 'Planta ZZ' },
-    water: {
-      en: 'Sparingly — very drought tolerant.',
-      de: 'Sparsam — sehr trockenheitsresistent.',
-      es: 'Con moderación — muy tolerante a la sequía.',
-    },
-    frequency: {
-      en: 'Every 14–21 days',
-      de: 'Alle 14–21 Tage',
-      es: 'Cada 14–21 días',
-    },
-    sunlight: {
-      en: 'Low to bright indirect light. Very forgiving.',
-      de: 'Wenig bis helles indirektes Licht. Sehr pflegeleicht.',
-      es: 'Luz indirecta baja a brillante. Muy tolerante.',
-    },
-    toxicity: 'toxic',
-  },
   'Dieffenbachia seguine': {
     commonName: { en: 'Dumb Cane', de: 'Dieffenbachie', es: 'Caña muda' },
     water: {
@@ -193,44 +155,6 @@ const PLANT_CARE = {
       es: 'Luz indirecta media a brillante.',
     },
     toxicity: 'toxic',
-  },
-  'Calathea orbifolia': {
-    commonName: { en: 'Calathea', de: 'Korbmarante', es: 'Calatea' },
-    water: {
-      en: 'Keep soil consistently moist. Use filtered water.',
-      de: 'Erde gleichmäßig feucht halten. Gefiltertes Wasser verwenden.',
-      es: 'Mantener la tierra húmeda. Usar agua filtrada.',
-    },
-    frequency: {
-      en: 'Every 5–7 days',
-      de: 'Alle 5–7 Tage',
-      es: 'Cada 5–7 días',
-    },
-    sunlight: {
-      en: 'Medium indirect light. No direct sun.',
-      de: 'Mittleres indirektes Licht. Keine direkte Sonne.',
-      es: 'Luz indirecta media. Sin sol directo.',
-    },
-    toxicity: 'safe',
-  },
-  'Maranta leuconeura': {
-    commonName: { en: 'Prayer Plant', de: 'Gebetspflanze', es: 'Planta de oración' },
-    water: {
-      en: 'Keep soil evenly moist. Sensitive to dry soil.',
-      de: 'Erde gleichmäßig feucht halten. Empfindlich bei Trockenheit.',
-      es: 'Mantener la tierra uniformemente húmeda. Sensible a la sequedad.',
-    },
-    frequency: {
-      en: 'Every 5–7 days',
-      de: 'Alle 5–7 Tage',
-      es: 'Cada 5–7 días',
-    },
-    sunlight: {
-      en: 'Low to medium indirect light.',
-      de: 'Wenig bis mittleres indirektes Licht.',
-      es: 'Luz indirecta baja a media.',
-    },
-    toxicity: 'safe',
   },
   'Alocasia amazonica': {
     commonName: { en: 'Elephant Ear', de: 'Elefantenohr', es: 'Oreja de elefante' },
@@ -251,7 +175,7 @@ const PLANT_CARE = {
     },
     toxicity: 'toxic',
   },
-  'Anthurium andreanum': {
+  'Anthurium andraeanum': {
     commonName: { en: 'Flamingo Flower', de: 'Flamingoblume', es: 'Flor de flamingo' },
     water: {
       en: 'Moderate — let top soil dry slightly between waterings.',
@@ -307,25 +231,6 @@ const PLANT_CARE = {
       es: 'Luz indirecta brillante para mejor color.',
     },
     toxicity: 'mildlyToxic',
-  },
-  'Pilea peperomioides': {
-    commonName: { en: 'Chinese Money Plant', de: 'Ufopflanze', es: 'Planta del dinero china' },
-    water: {
-      en: 'Moderate — let soil dry out between waterings.',
-      de: 'Mäßig — Erde zwischen dem Gießen trocknen lassen.',
-      es: 'Moderado — dejar secar entre riegos.',
-    },
-    frequency: {
-      en: 'Every 7–10 days',
-      de: 'Alle 7–10 Tage',
-      es: 'Cada 7–10 días',
-    },
-    sunlight: {
-      en: 'Bright indirect light. Rotate regularly.',
-      de: 'Helles indirektes Licht. Regelmäßig drehen.',
-      es: 'Luz indirecta brillante. Rotar regularmente.',
-    },
-    toxicity: 'safe',
   },
   'Peperomia obtusifolia': {
     commonName: { en: 'Baby Rubber Plant', de: 'Zwergpfeffer', es: 'Peperomia' },
@@ -403,44 +308,6 @@ const PLANT_CARE = {
     },
     toxicity: 'toxic',
   },
-  'Echeveria elegans': {
-    commonName: { en: 'Mexican Snowball', de: 'Mexikanischer Schneeball', es: 'Rosa de alabastro' },
-    water: {
-      en: 'Sparingly — soak and dry method.',
-      de: 'Sparsam — Tauch- und Trockenmethode.',
-      es: 'Con moderación — método de remojar y secar.',
-    },
-    frequency: {
-      en: 'Every 14–21 days',
-      de: 'Alle 14–21 Tage',
-      es: 'Cada 14–21 días',
-    },
-    sunlight: {
-      en: 'Full sun to bright indirect light.',
-      de: 'Volle Sonne bis helles indirektes Licht.',
-      es: 'Sol pleno a luz indirecta brillante.',
-    },
-    toxicity: 'safe',
-  },
-  'Beaucarnea recurvata': {
-    commonName: { en: 'Ponytail Palm', de: 'Flaschenpalme', es: 'Pata de elefante' },
-    water: {
-      en: 'Sparingly — stores water in its trunk.',
-      de: 'Sparsam — speichert Wasser im Stamm.',
-      es: 'Con moderación — almacena agua en su tronco.',
-    },
-    frequency: {
-      en: 'Every 14–21 days',
-      de: 'Alle 14–21 Tage',
-      es: 'Cada 14–21 días',
-    },
-    sunlight: {
-      en: 'Bright light. Tolerates some direct sun.',
-      de: 'Helles Licht. Verträgt etwas direkte Sonne.',
-      es: 'Luz brillante. Tolera algo de sol directo.',
-    },
-    toxicity: 'safe',
-  },
   'Dypsis lutescens': {
     commonName: { en: 'Areca Palm', de: 'Arecapalme', es: 'Palmera areca' },
     water: {
@@ -459,6 +326,101 @@ const PLANT_CARE = {
       es: 'Luz indirecta brillante.',
     },
     toxicity: 'safe',
+  },
+  'Pachira aquatica': {
+    commonName: { en: 'Money Tree', de: 'Glückskastanie', es: 'Árbol del dinero' },
+    water: {
+      en: 'Moderate — water when top soil is dry.',
+      de: 'Mäßig — gießen, wenn die obere Erde trocken ist.',
+      es: 'Moderado — regar cuando la superficie esté seca.',
+    },
+    frequency: {
+      en: 'Every 7–10 days',
+      de: 'Alle 7–10 Tage',
+      es: 'Cada 7–10 días',
+    },
+    sunlight: {
+      en: 'Bright indirect light. Tolerates some shade.',
+      de: 'Helles indirektes Licht. Verträgt etwas Schatten.',
+      es: 'Luz indirecta brillante. Tolera algo de sombra.',
+    },
+    toxicity: 'safe',
+  },
+  'Yucca elephantipes': {
+    commonName: { en: 'Spineless Yucca', de: 'Yucca-Palme', es: 'Yuca pie de elefante' },
+    water: {
+      en: 'Sparingly — let soil dry out between waterings.',
+      de: 'Sparsam — Erde zwischen dem Gießen trocknen lassen.',
+      es: 'Con moderación — dejar secar entre riegos.',
+    },
+    frequency: {
+      en: 'Every 10–14 days',
+      de: 'Alle 10–14 Tage',
+      es: 'Cada 10–14 días',
+    },
+    sunlight: {
+      en: 'Bright light. Tolerates direct sun.',
+      de: 'Helles Licht. Verträgt direkte Sonne.',
+      es: 'Luz brillante. Tolera sol directo.',
+    },
+    toxicity: 'mildlyToxic',
+  },
+  'Hedera helix': {
+    commonName: { en: 'English Ivy', de: 'Efeu', es: 'Hiedra' },
+    water: {
+      en: 'Moderate — keep soil lightly moist.',
+      de: 'Mäßig — Erde leicht feucht halten.',
+      es: 'Moderado — mantener la tierra ligeramente húmeda.',
+    },
+    frequency: {
+      en: 'Every 5–7 days',
+      de: 'Alle 5–7 Tage',
+      es: 'Cada 5–7 días',
+    },
+    sunlight: {
+      en: 'Bright indirect light. Tolerates shade.',
+      de: 'Helles indirektes Licht. Verträgt Schatten.',
+      es: 'Luz indirecta brillante. Tolera la sombra.',
+    },
+    toxicity: 'toxic',
+  },
+  'Asplenium nidus': {
+    commonName: { en: 'Bird\'s Nest Fern', de: 'Nestfarn', es: 'Helecho nido de ave' },
+    water: {
+      en: 'Keep soil consistently moist. Avoid watering the rosette center.',
+      de: 'Erde gleichmäßig feucht halten. Nicht in die Rosettenmitte gießen.',
+      es: 'Mantener la tierra húmeda. Evitar regar el centro de la roseta.',
+    },
+    frequency: {
+      en: 'Every 5–7 days',
+      de: 'Alle 5–7 Tage',
+      es: 'Cada 5–7 días',
+    },
+    sunlight: {
+      en: 'Low to medium indirect light. No direct sun.',
+      de: 'Wenig bis mittleres indirektes Licht. Keine direkte Sonne.',
+      es: 'Luz indirecta baja a media. Sin sol directo.',
+    },
+    toxicity: 'safe',
+  },
+  'Codiaeum variegatum': {
+    commonName: { en: 'Croton', de: 'Kroton', es: 'Crotón' },
+    water: {
+      en: 'Moderate — keep soil evenly moist.',
+      de: 'Mäßig — Erde gleichmäßig feucht halten.',
+      es: 'Moderado — mantener la tierra uniformemente húmeda.',
+    },
+    frequency: {
+      en: 'Every 5–7 days',
+      de: 'Alle 5–7 Tage',
+      es: 'Cada 5–7 días',
+    },
+    sunlight: {
+      en: 'Bright direct or indirect light for best color.',
+      de: 'Helles direktes oder indirektes Licht für beste Färbung.',
+      es: 'Luz directa o indirecta brillante para mejor color.',
+    },
+    toxicity: 'toxic',
   },
   'Schefflera arboricola': {
     commonName: { en: 'Dwarf Umbrella Tree', de: 'Zwergschefflera', es: 'Árbol sombrilla enano' },
@@ -487,4 +449,13 @@ const PLANT_CARE = {
  */
 export function getPlantCare(scientificName) {
   return PLANT_CARE[scientificName] || null;
+}
+
+/**
+ * Return a sorted list of all plants the model can identify.
+ */
+export function getPlantList() {
+  return Object.entries(PLANT_CARE)
+    .map(([scientific, info]) => ({ scientific, commonName: info.commonName }))
+    .sort((a, b) => a.scientific.localeCompare(b.scientific));
 }

@@ -3,6 +3,17 @@
  * Each icon uses rounded strokes, soft fills, and a playful hand-drawn feel.
  */
 
+export function InfoIcon({ size = 20, color = 'currentColor', ...props }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <circle cx="12" cy="12" r="10" fill={color} opacity="0.12" />
+      <circle cx="12" cy="12" r="10" stroke={color} strokeWidth="2" />
+      <circle cx="12" cy="8" r="1.2" fill={color} />
+      <line x1="12" y1="11" x2="12" y2="17" stroke={color} strokeWidth="2.2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function FlashIcon({ size = 20, color = 'currentColor', ...props }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>

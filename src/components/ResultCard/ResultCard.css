@@ -50,6 +50,16 @@
   margin: 4px 0 -4px;
 }
 
+.plant-illustration--clickable {
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.plant-illustration--clickable:active {
+  transform: scale(0.92);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+}
+
 .result-common-name {
   margin: -4px 0 10px;
   font-family: 'Nunito', sans-serif;
@@ -147,6 +157,29 @@
   row-gap: 3px;
   align-items: center;
   text-align: left;
+}
+
+.top3-item--clickable {
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 6px 4px;
+  margin: -6px -4px;
+  transition: background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.top3-item--clickable:active {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.top3-search-icon {
+  margin-left: 4px;
+  vertical-align: middle;
+  opacity: 0.5;
+}
+
+.top3-item--clickable:hover .top3-search-icon {
+  opacity: 1;
 }
 
 .top3-rank {
