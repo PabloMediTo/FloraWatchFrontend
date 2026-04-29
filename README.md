@@ -11,6 +11,7 @@ A mobile-first plant identification app built with React. Point your camera at a
 - **Camera scanning** — live viewfinder with frame freeze on capture
 - **Photo upload** — pick from gallery as an alternative to the camera
 - **Plant identification** — identifies 23 common houseplant species
+- **Top-3 selection** — after each scan, choose from the 3 most likely matches before confirming
 - **Plant encyclopedia** — swipable left-side drawer listing all supported species with thumbnails
 - **Plant detail view** — tap any plant for care info, toxicity badge, image, and fun facts
 - **Care tips** — watering, frequency, and sunlight recommendations with custom SVG icons

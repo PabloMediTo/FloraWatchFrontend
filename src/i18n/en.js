@@ -4,6 +4,7 @@ export default {
   'status.scanning': 'Scanning…',
   'status.coldStart': 'First scan may take up to 60 s while the server wakes up',
   'status.success': 'Plant detected!',
+  'status.picking': 'We found some matches!',
   'status.uncertain': 'Could not identify plant',
   'status.error': 'Something went wrong',
 
@@ -46,6 +47,10 @@ export default {
   'confirm.yes': 'Yes, that\'s it!',
   'confirm.no': 'No',
   'confirm.noImage': 'No image available',
+
+  // Plant options
+  'options.title': 'Is one of these your plant?',
+  'options.subtitle': 'Tap the one that matches to confirm.',
 
   // Plant list modal
   'plantList.title': 'Supported Plants',

@@ -3,6 +3,7 @@ export default {
   'status.scanning': 'Scannen…',
   'status.coldStart': 'Der erste Scan kann bis zu 60 s dauern, während der Server hochfährt',
   'status.success': 'Pflanze erkannt!',
+  'status.picking': 'Wir haben Treffer gefunden!',
   'status.uncertain': 'Pflanze nicht erkannt',
   'status.error': 'Etwas ist schiefgelaufen',
 
@@ -38,6 +39,9 @@ export default {
   'confirm.yes': 'Ja, genau!',
   'confirm.no': 'Nein',
   'confirm.noImage': 'Kein Bild verfügbar',
+
+  'options.title': 'Ist eine davon deine Pflanze?',
+  'options.subtitle': 'Tippe auf die passende, um zu bestätigen.',
 
   'plantList.title': 'Unterstützte Pflanzen',
 

@@ -3,6 +3,7 @@ export default {
   'status.scanning': 'Escaneando…',
   'status.coldStart': 'El primer escaneo puede tardar hasta 60 s mientras el servidor se inicia',
   'status.success': '¡Planta detectada!',
+  'status.picking': '¡Encontramos coincidencias!',
   'status.uncertain': 'No se pudo identificar',
   'status.error': 'Algo salió mal',
 
@@ -38,6 +39,9 @@ export default {
   'confirm.yes': '¡Sí, es esa!',
   'confirm.no': 'No',
   'confirm.noImage': 'Imagen no disponible',
+
+  'options.title': '¿Es una de estas tu planta?',
+  'options.subtitle': 'Toca la que coincida para confirmar.',
 
   'plantList.title': 'Plantas compatibles',
 

@@ -6,6 +6,7 @@ import './StatusMessage.css';
 const STATUS_CONFIG = {
   idle: { key: 'status.idle', Icon: LeafIcon, color: '#4a7c59' },
   scanning: { key: 'status.scanning', Icon: SearchIcon, color: '#c08b30' },
+  picking: { key: 'status.picking', Icon: SearchIcon, color: '#2d7a4f' },
   success: { key: 'status.success', Icon: CheckCircleIcon, color: '#2d7a4f' },
   uncertain: { key: 'status.uncertain', Icon: AlertIcon, color: '#b45309' },
   error: { key: 'status.error', Icon: AlertIcon, color: '#b94040' },

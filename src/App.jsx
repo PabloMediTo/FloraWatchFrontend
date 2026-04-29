@@ -10,6 +10,7 @@ import { warmupBackend, predictPlant } from './services/api';
 import { getPlantCare } from './data/plantCare';
 import { getRandomFact } from './data/plantFacts';
 import { getHistory, addToHistory, clearHistory } from './services/history';
+import PlantOptionsCard from './components/PlantOptionsCard/PlantOptionsCard';
 import LangPicker from './components/LangPicker/LangPicker';
 import PlantListModal from './components/PlantListModal/PlantListModal';
 import './components/PlantListModal/PlantListModal.css';
@@ -48,15 +49,8 @@ export default function App() {
       let plant = await predictPlant(blob);
 
       setResult(plant);
-      if (plant.unknown) {
-        vibrate([10, 40, 10]);
-        setStatus('uncertain');
-      } else {
-        vibrate([10, 30, 10, 30, 10]);
-        setStatus('success');
-        setShowFlowers(true);
-        setHistory(addToHistory(plant));
-      }
+      vibrate([10, 40, 10]);
+      setStatus('picking');
     } catch {
       vibrate([30, 50, 30]);
       setStatus('error');
@@ -152,42 +146,51 @@ export default function App() {
       {/* Action / Result */}
       <div className="action-area">
         <AnimatePresence mode="wait">
-          {status === 'scanning' ? (
-            <SkeletonCard key="skeleton" />
-          ) : result ? (
-            <Suspense fallback={<SkeletonCard />}>
-              <ResultCard key="result" result={result} uncertain={status === 'uncertain'} onDismiss={handleDismiss} onConfirmPlant={handleConfirmPlant} />
-            </Suspense>
-          ) : (
-            <motion.div
-              key="scan"
-              className="scan-actions"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.25 }}
-            >
-              <ScanButton
-                onClick={handleScan}
-                disabled={status === 'scanning'}
-                scanning={status === 'scanning'}
-              />
-              <button
-                className="upload-btn"
-                onClick={() => fileInputRef.current?.click()}
-                aria-label="Upload photo"
+          {(() => {
+            if (status === 'scanning') {
+              return <SkeletonCard key="skeleton" />;
+            }
+            if (status === 'picking' && result) {
+              return <PlantOptionsCard key="options" result={result} onConfirm={handleConfirmPlant} onDismiss={handleDismiss} />;
+            }
+            if (result) {
+              return (
+                <Suspense fallback={<SkeletonCard />}>
+                  <ResultCard key="result" result={result} onDismiss={handleDismiss} onConfirmPlant={handleConfirmPlant} />
+                </Suspense>
+              );
+            }
+            return (
+              <motion.div
+                key="scan"
+                className="scan-actions"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.25 }}
               >
-                <GalleryIcon size={20} color="#3d8b3d" />
-              </button>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                className="upload-input"
-                onChange={handleUpload}
-              />
-            </motion.div>
-          )}
+                <ScanButton
+                  onClick={handleScan}
+                  disabled={status === 'scanning'}
+                  scanning={status === 'scanning'}
+                />
+                <button
+                  className="upload-btn"
+                  onClick={() => fileInputRef.current?.click()}
+                  aria-label="Upload photo"
+                >
+                  <GalleryIcon size={20} color="#3d8b3d" />
+                </button>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="upload-input"
+                  onChange={handleUpload}
+                />
+              </motion.div>
+            );
+          })()}
         </AnimatePresence>
       </div>
 
